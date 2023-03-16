@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: airflow-ss
+spec:
+  selector:
+    matchLabels:
+      app: airflow 
+  serviceName: "airflow"
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        app: airflow 
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: airflow-test-image
+        image: image-registry.openshift-image-registry.svc:5000/airflow-test/airflow-test
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: airflow-pvc
+          mountPath: /opt/airflow
+  volumeClaimTemplates:
+  - metadata:
+      name: airflow-pvc
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      storageClassName: "ocs-storagecluster-cephfs"
+      resources:
+        requests:
+          storage: 10Gi

@@ -1,0 +1,10 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: airflow-test-route
+spec:
+  port:
+    targetPort: 8080 
+  to:
+    kind: Service
+    name: airflow-test-svc
