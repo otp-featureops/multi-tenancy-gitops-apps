@@ -24,7 +24,7 @@ spec:
         - containerPort: 8080
         volumeMounts:
         - name: airflow-pvc
-          mountPath: /opt/airflow/dags
+          mountPath: /opt/airflow
   volumeClaimTemplates:
   - metadata:
       name: airflow-pvc
