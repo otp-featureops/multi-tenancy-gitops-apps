@@ -17,6 +17,9 @@ spec:
       containers:
       - name: airflow-test-image
         image: image-registry.openshift-image-registry.svc:5000/airflow-test/airflow-test
+        env:
+        - name: AIRFLOW__CORE__LAZY_LOAD_PLUGINS
+          value: "False"
         ports:
         - containerPort: 8080
         volumeMounts:
